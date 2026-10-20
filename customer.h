@@ -1,10 +1,14 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
 
+#include <stdbool.h>
+
 typedef struct{
     int id;
-    char *name1;
-    char name2[20];
+    char name[30];
+    char address[50];
+    int total_games;
+    bool regular;
 
 }Customer;
 
