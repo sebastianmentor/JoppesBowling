@@ -12,4 +12,10 @@ typedef struct{
 
 }Customer;
 
+bool add_customer(const Customer *customer);
+bool check_id_exist(int id);
+void print_customer(const Customer *customer);
+void print_all_customers(void);
+Customer get_customer(int customer_id);
+
 #endif

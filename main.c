@@ -3,7 +3,6 @@
 #include "safe_input.h"
 
 void print_menu();
-void print_customer(const Customer *customer);
 
 int main(void)
 {
@@ -17,7 +16,7 @@ int main(void)
     while (run_program)
     {   
         print_menu();
-        user_choice = get_int("Enter choice:", 0, 2);
+        user_choice = get_int("Enter choice:", 0, 3);
 
         switch (user_choice)
         {
@@ -30,10 +29,36 @@ int main(void)
             new_customer.regular = false;
             nr_of_users ++;
 
-            print_customer(&new_customer);
+            if(add_customer(&new_customer))
+            {
+                printf("Success, new customer createt and added to system!\n");
+                print_customer(&new_customer);
+            }
+            else
+            {
+                printf("Something went south, better quit now when you are ahead!\n");
+            }
             break;
         
         case 2:
+            print_all_customers();
+            break;
+
+        case 3:
+            int serch_id = get_int("Enter customer id: ", 1, 10000);
+            Customer customer = get_customer(serch_id);
+
+            if(customer.id == serch_id)
+            {
+                printf("We fount the dyde!\n");
+            }
+            else
+            {
+                printf("we did not found the magic customer! We got:\n");
+            }
+
+            print_customer(&customer);
+
 
             break;
         case 0:
@@ -55,15 +80,7 @@ void print_menu()
 {
     printf("1. Create new customer\n");
     printf("2. Show all customer\n");
+    printf("3. Search customer\n");
     printf("0. Quit\n");
 }
 
-void print_customer(const Customer *customer)
-{
-    printf("\nCustomer:   \n");
-    printf("ID      = %d\n", customer -> id);
-    printf("Name    = %s\n", customer -> name);
-    printf("Address = %s\n", customer -> address);
-    printf("Games   = %d\n", customer -> total_games);
-    printf("Regular = %s\n", customer -> regular == true?"Yes":"No");
-}
